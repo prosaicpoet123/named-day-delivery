@@ -1,5 +1,5 @@
-import ReactHabitat from 'react-habitat';
-import SomeReactComponent from './some-react-component';
+import ReactHabitat                 from 'react-habitat';
+import NamedDayDeliverySelector from './named-day-delivery-selector';
 
 class MyApp extends ReactHabitat.Bootstrapper {
     constructor() {
@@ -9,7 +9,7 @@ class MyApp extends ReactHabitat.Bootstrapper {
         const builder = new ReactHabitat.ContainerBuilder();
 
         // Register a component:
-        builder.register(SomeReactComponent).as('SomeReactComponent');
+        builder.register(NamedDayDeliverySelector).as('NamedDayDeliverySelector');
 
         // Finally, set the container:
         this.setContainer(builder.build());
