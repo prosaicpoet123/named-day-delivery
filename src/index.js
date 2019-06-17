@@ -1,8 +1,8 @@
-import ReactHabitat                 from 'react-habitat';
-import SomeReactComponent           from './some-react-component';
+import ReactHabitat from 'react-habitat';
+import SomeReactComponent from './some-react-component';
 
 class MyApp extends ReactHabitat.Bootstrapper {
-    constructor(){
+    constructor() {
         super();
 
         // Create a new container builder:
@@ -10,9 +10,6 @@ class MyApp extends ReactHabitat.Bootstrapper {
 
         // Register a component:
         builder.register(SomeReactComponent).as('SomeReactComponent');
-
-        // Or register a component to load on demand asynchronously:
-        // builder.registerAsync(() => System.import('./AnotherReactComponent')).as('AnotherReactComponent');
 
         // Finally, set the container:
         this.setContainer(builder.build());

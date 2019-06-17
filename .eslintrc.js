@@ -19,5 +19,13 @@ module.exports = {
         "react"
     ],
     "rules": {
-    }
+        "indent": [2, 4],
+        "react/jsx-indent": [2, 4],
+        "react/jsx-indent-props": [2, 4],
+        "jsx-a11y/label-has-for": 0,
+        "react/no-array-index-key": "off",
+        "comma-dangle": ["error", "never"],
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+    },
+    "parser": "babel-eslint"
 };
