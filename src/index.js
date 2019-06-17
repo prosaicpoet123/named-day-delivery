@@ -1,4 +1,4 @@
-import ReactHabitat                 from 'react-habitat';
+import ReactHabitat from 'react-habitat';
 import NamedDayDeliverySelector from './named-day-delivery-selector';
 
 class MyApp extends ReactHabitat.Bootstrapper {
