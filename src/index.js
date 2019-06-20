@@ -1,6 +1,10 @@
 import ReactHabitat from 'react-habitat';
 import NamedDayDeliverySelector from './named-day-delivery-selector';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './resources/styles.css';
+
 class MyApp extends ReactHabitat.Bootstrapper {
     constructor() {
         super();
