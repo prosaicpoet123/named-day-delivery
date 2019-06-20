@@ -30,7 +30,7 @@ class Carousel extends React.PureComponent {
 
         if (!dates.length) {
             // in case we get no data back
-            return <div>Sorry something went wrong! Please try refreshing the page...</div>;
+            return <div className="carousel-error">Sorry something went wrong! Please try refreshing the page...</div>;
         }
 
         const radioStyles = {
