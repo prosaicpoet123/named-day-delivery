@@ -1,6 +1,9 @@
 .slick-slider {
     margin-right: 20px;
     margin-left: 20px;
+    font-family: Helvetica;
+    color: #333;
+    padding-right: 4px;
 }
 
 .slick-prev, .slick-next {
@@ -33,9 +36,14 @@
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
     text-align: center;
     cursor: pointer;
     box-sizing: border-box;
+}
+
+.carousel-item p {
+    margin: 8px;
 }
 
 .carousel-item:focus {
@@ -50,4 +58,5 @@
 .carousel-item-disabled {
     opacity: 0.75;
     background: #eee;
+    color: #A9A9A9;
 }
