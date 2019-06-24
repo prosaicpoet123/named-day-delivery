@@ -16,8 +16,34 @@ class Carousel extends React.PureComponent {
             dots: false,
             infinite: false,
             speed: 200,
-            slidesToShow: 5,
-            slidesToScroll: 1
+            slidesToShow: 7,
+            slidesToScroll: 1,
+            draggable: false,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 5,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 5,
+                        slidesToScroll: 1,
+                        draggable: true
+                    }
+                },
+                {
+                    breakpoint: 400,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 1,
+                        draggable: true
+                    }
+                }
+            ]
         };
 
         const {
@@ -52,7 +78,9 @@ class Carousel extends React.PureComponent {
                         key={`${date} ${index}`}
                     >
                         <p>{date.day}</p>
-                        <p>{date.price}</p>
+                        <p><strong>{date.date}</strong></p>
+                        <p>{date.month}</p>
+                        {/* <p>{date.price}</p> */}
                         <input
                             type="radio"
                             name="Day"
