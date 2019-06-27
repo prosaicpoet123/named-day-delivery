@@ -3,35 +3,38 @@ import { mount } from 'enzyme';
 import Carousel from './index.jsx';
 
 const deliveryDays = {
-    dates: [
-        {
-            day: 'Thur',
-            date: '15',
-            month: 'Feb',
+    dates: [  
+        {  
+            day: "Mon",
+            date: "17",
+            month: "June",
+            price: "£2.99",
             available: true,
-            price: '£12.99'
+            bookingCode: "HERMNDG/2019-06-17/*-*/*/*-*"
         },
-        {
-            day: 'Thur',
-            date: '15',
-            month: 'Feb',
+        {  
+            day: "Tues",
+            date: "18",
+            month: "June",
+            price: "£2.99",
             available: true,
-            price: '£12.99'
+            bookingCode: "HERMNDG/2019-06-18/*-*/*/*-*"
         },
-        {
-            day: 'Thur',
-            date: '15',
-            month: 'Feb',
+        {  
+            day: "Wed",
+            date: "19",
+            month: "June",
+            price: "£2.99",
             available: true,
-            price: '£12.99'
-        }
+            bookingCode: "HERMNDG/2019-06-19/*-*/*/*-*"
+        },
     ]
 }
 
 describe('Carousel component', () => {
-    it('should show the error message if no data is available', () => {
+    it('should show no carousel items if there is no data available', () => {
         const wrapper1 = mount(<Carousel />);
-        expect(wrapper1.find('.carousel-error').length).toBe(1)
+        expect(wrapper1.find('.slick-slide').length).toBe(0)
     });
 
     const wrapper2 = mount(<Carousel {...deliveryDays} />)
