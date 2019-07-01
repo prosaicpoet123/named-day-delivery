@@ -1,6 +1,11 @@
 .slick-slider {
-    margin-right: 20px;
-    margin-left: 20px;
+    /* the body tag on the website is set to display: table; which is causing the 
+    slick carousel to break, adding the two styles below fixes this and need to
+    remove left and right margins so we don't lose the buttons */
+    /* margin-right: 20px;
+    margin-left: 20px; */
+    min-width: 100%;
+    width: 0;
     font-family: Helvetica;
     color: #333;
 }
@@ -24,6 +29,7 @@
 .slick-next::before,
 .slick-prev::before {
     content: '';
+    visibility: hidden; /* important overwright to stop styles from breaking in live */
 }
 
 .slick-prev {
@@ -35,6 +41,7 @@
 
 .slick-slide {
     overflow: hidden;
+    margin: 0 !important; /* important overwright to stop styles from breaking in live */
 }
 
 .carousel-item {

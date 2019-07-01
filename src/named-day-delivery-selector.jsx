@@ -22,8 +22,9 @@ class NamedDayDeliverySelector extends PureComponent {
         const { selected } = this.state;
         const { deliverydays } = this.props;
         return (
-            <div>
-                <h3>Choose a day:</h3>
+            // couple of classes to borrow styles from ATG
+            <div className="checkout-fieldset-area">
+                <h3 className="heading-2">Choose a day:</h3>
                 <Carousel
                     {...deliverydays}
                     selected={selected}
