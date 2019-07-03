@@ -64,6 +64,9 @@ const Carousel = ({ dates, selected, onSelect }) => {
         onSelect(e.target.value);
     };
 
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; // will need to be translated
+    const weekDays = ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']; // will need to be translated
+
     return (
         <Slider {...settings}>
             {dates.map((date, index) => {
@@ -78,25 +81,30 @@ const Carousel = ({ dates, selected, onSelect }) => {
                     'delivery-day-block',
                     { 'selected-day': isSelected }
                 );
+                // this date logic should probably be extracted into its own function with its own unit test
+                // will create a separate story for this technical debt
+                const parsedDate = new Date(date.date);
+                const thisMonth = months[parsedDate.getMonth()];
+                const thisDay = weekDays[parsedDate.getDay()];
+                const thisDate = parsedDate.getDate();
                 return (
                     <label
-                        htmlFor={`${date.day}-${index}`}
+                        htmlFor={`${thisDay}-${index}`}
                         className={labelClasses}
-                        key={`${date} ${index}`}
+                        key={`${date.date} ${index}`}
                     >
-                        <p>{date.day}</p>
+                        <p>{thisDay}</p>
                         <p>
-                            <strong>{date.date}</strong>
+                            <strong>{thisDate}</strong>
                         </p>
-                        <p>{date.month}</p>
-                        {/* <p>{date.price}</p> */}
+                        <p>{thisMonth}</p>
                         <input
-                            className={inputClasses}
                             type="radio"
                             name="Day"
                             data-booking-code={date.bookingCode}
                             data-group-code={GROUP_CODE}
-                            id={`${date.day}-${index}`}
+                            className={inputClasses}
+                            id={`${thisDay}-${index}`}
                             value={date.bookingCode}
                             style={radioStyles}
                             onChange={onChange}
