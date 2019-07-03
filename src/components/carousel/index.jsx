@@ -62,6 +62,8 @@ const Carousel = ({ dates, selected, onSelect }) => {
 
     const onChange = (e) => {
         onSelect(e.target.value);
+        const btn = document.getElementsByClassName('js-delivery-option-submit-button');
+        btn[0].disabled = false;
     };
 
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; // will need to be translated
