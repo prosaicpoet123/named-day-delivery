@@ -81,8 +81,8 @@ const Carousel = ({ dates, selected, onSelect }) => {
                     'delivery-day-block',
                     { 'selected-day': isSelected }
                 );
-                // this date logic should probably be extracted into its own function with its own unit test
-                // will create a separate story for this technical debt
+                // this date logic should probably be extracted into its own function with
+                // its own unit test will create a separate story for this technical debt
                 const parsedDate = new Date(date.date);
                 const thisMonth = months[parsedDate.getMonth()];
                 const thisDay = weekDays[parsedDate.getDay()];
