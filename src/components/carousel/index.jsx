@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
+import classNames from 'classnames';
 
 const Carousel = ({ dates, selected, onSelect }) => {
     const settings = {
@@ -46,6 +47,9 @@ const Carousel = ({ dates, selected, onSelect }) => {
         );
     }
 
+    // I've made this a constant for now as the value is static
+    const GROUP_CODE = 'NOMDD';
+
     const radioStyles = {
         visibility: 'hidden',
         height: '0px',
@@ -62,34 +66,46 @@ const Carousel = ({ dates, selected, onSelect }) => {
 
     return (
         <Slider {...settings}>
-            {dates.map((date, index) => (
-                <label
-                    htmlFor={`${date.day}-${index}`}
-                    className={`carousel-item ${
-                        selected === date.bookingCode
-                            ? 'carousel-item-selected'
-                            : ''
-                    } ${!date.available ? 'carousel-item-disabled' : ''}`}
-                    key={`${date} ${index}`}
-                >
-                    <p>{date.day}</p>
-                    <p>
-                        <strong>{date.date}</strong>
-                    </p>
-                    <p>{date.month}</p>
-                    {/* <p>{date.price}</p> */}
-                    <input
-                        type="radio"
-                        name="Day"
-                        id={`${date.day}-${index}`}
-                        value={date.bookingCode}
-                        style={radioStyles}
-                        onChange={onChange}
-                        aria-checked={selected === index && 'checked'}
-                        disabled={!date.available}
-                    />
-                </label>
-            ))}
+            {dates.map((date, index) => {
+                const isSelected = selected === date.bookingCode;
+                const isAvailable = date.available;
+                const labelClasses = classNames(
+                    'carousel-item',
+                    { 'carousel-item-selected': isSelected },
+                    { 'carousel-item-disabled': !isAvailable }
+                );
+                const inputClasses = classNames(
+                    'delivery-day-block',
+                    { 'selected-day': isSelected }
+                );
+                return (
+                    <label
+                        htmlFor={`${date.day}-${index}`}
+                        className={labelClasses}
+                        key={`${date} ${index}`}
+                    >
+                        <p>{date.day}</p>
+                        <p>
+                            <strong>{date.date}</strong>
+                        </p>
+                        <p>{date.month}</p>
+                        {/* <p>{date.price}</p> */}
+                        <input
+                            className={inputClasses}
+                            type="radio"
+                            name="Day"
+                            data-booking-code={date.bookingCode}
+                            data-group-code={GROUP_CODE}
+                            id={`${date.day}-${index}`}
+                            value={date.bookingCode}
+                            style={radioStyles}
+                            onChange={onChange}
+                            aria-checked={selected === index && 'checked'}
+                            disabled={!date.available}
+                        />
+                    </label>
+                );
+            })}
         </Slider>
     );
 };
