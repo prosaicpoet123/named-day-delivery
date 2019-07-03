@@ -62,34 +62,42 @@ const Carousel = ({ dates, selected, onSelect }) => {
 
     return (
         <Slider {...settings}>
-            {dates.map((date, index) => (
-                <label
-                    htmlFor={`${date.day}-${index}`}
-                    className={`carousel-item ${
-                        selected === date.bookingCode
-                            ? 'carousel-item-selected'
-                            : ''
-                    } ${!date.available ? 'carousel-item-disabled' : ''}`}
-                    key={`${date} ${index}`}
-                >
-                    <p>{date.day}</p>
-                    <p>
-                        <strong>{date.date}</strong>
-                    </p>
-                    <p>{date.month}</p>
-                    {/* <p>{date.price}</p> */}
-                    <input
-                        type="radio"
-                        name="Day"
-                        id={`${date.day}-${index}`}
-                        value={date.bookingCode}
-                        style={radioStyles}
-                        onChange={onChange}
-                        aria-checked={selected === index && 'checked'}
-                        disabled={!date.available}
-                    />
-                </label>
-            ))}
+            {dates.map((date, index) => {
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; // will need to be translated
+                const weekDays = ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']; // will need to be translated
+                const parsedDate = new Date(date.date);
+                const thisMonth = months[parsedDate.getMonth()];
+                const thisDay = weekDays[parsedDate.getDay()];
+                const thisDate = parsedDate.getDate();
+                return (
+                    <label
+                        htmlFor={`${date.day}-${index}`}
+                        className={`carousel-item ${
+                            selected === date.bookingCode
+                                ? 'carousel-item-selected'
+                                : ''
+                        } ${!date.available ? 'carousel-item-disabled' : ''}`}
+                        key={`${date} ${index}`}
+                    >
+                        <p>{thisDay}</p>
+                        <p>
+                            <strong>{thisDate}</strong>
+                        </p>
+                        <p>{thisMonth}</p>
+                        {/* <p>{date.price}</p> */}
+                        <input
+                            type="radio"
+                            name="Day"
+                            id={`${date.day}-${index}`}
+                            value={date.bookingCode}
+                            style={radioStyles}
+                            onChange={onChange}
+                            aria-checked={selected === index && 'checked'}
+                            disabled={!date.available}
+                        />
+                    </label>
+                );
+            })}
         </Slider>
     );
 };
