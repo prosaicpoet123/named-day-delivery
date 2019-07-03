@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
+import classNames from 'classnames';
 
 const Carousel = ({ dates, selected, onSelect }) => {
     const settings = {
@@ -46,6 +47,9 @@ const Carousel = ({ dates, selected, onSelect }) => {
         );
     }
 
+    // I've made this a constant for now as the value is static
+    const GROUP_CODE = 'NOMDD';
+
     const radioStyles = {
         visibility: 'hidden',
         height: '0px',
@@ -60,13 +64,25 @@ const Carousel = ({ dates, selected, onSelect }) => {
         onSelect(e.target.value);
     };
 
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; // will need to be translated
+    const weekDays = ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']; // will need to be translated
+
     return (
         <Slider {...settings}>
             {dates.map((date, index) => {
+                const isSelected = selected === date.bookingCode;
+                const isAvailable = date.available;
+                const labelClasses = classNames(
+                    'carousel-item',
+                    { 'carousel-item-selected': isSelected },
+                    { 'carousel-item-disabled': !isAvailable }
+                );
+                const inputClasses = classNames(
+                    'delivery-day-block',
+                    { 'selected-day': isSelected }
+                );
                 // this date logic should probably be extracted into its own function with its own unit test
                 // will create a separate story for this technical debt
-                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; // will need to be translated
-                const weekDays = ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']; // will need to be translated
                 const parsedDate = new Date(date.date);
                 const thisMonth = months[parsedDate.getMonth()];
                 const thisDay = weekDays[parsedDate.getDay()];
@@ -74,22 +90,20 @@ const Carousel = ({ dates, selected, onSelect }) => {
                 return (
                     <label
                         htmlFor={`${thisDay}-${index}`}
-                        className={`carousel-item ${
-                            selected === date.bookingCode
-                                ? 'carousel-item-selected'
-                                : ''
-                        } ${!date.available ? 'carousel-item-disabled' : ''}`}
-                        key={`${date} ${index}`}
+                        className={labelClasses}
+                        key={`${date.date} ${index}`}
                     >
                         <p>{thisDay}</p>
                         <p>
                             <strong>{thisDate}</strong>
                         </p>
                         <p>{thisMonth}</p>
-                        {/* <p>{date.price}</p> */}
                         <input
                             type="radio"
                             name="Day"
+                            data-booking-code={date.bookingCode}
+                            data-group-code={GROUP_CODE}
+                            className={inputClasses}
                             id={`${thisDay}-${index}`}
                             value={date.bookingCode}
                             style={radioStyles}
