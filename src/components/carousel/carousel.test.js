@@ -5,25 +5,19 @@ import Carousel from './index.jsx';
 const deliveryDays = {
     dates: [  
         {  
-            day: "Mon",
-            date: "17",
-            month: "June",
+            date: "2019-07-04T17:30:00.000Z",
             price: "£2.99",
             available: true,
             bookingCode: "HERMNDG/2019-06-17/*-*/*/*-*"
         },
         {  
-            day: "Tues",
-            date: "18",
-            month: "June",
+            date: "2019-07-04T17:30:00.000Z",
             price: "£2.99",
             available: true,
             bookingCode: "HERMNDG/2019-06-18/*-*/*/*-*"
         },
         {  
-            day: "Wed",
-            date: "19",
-            month: "June",
+            date: "2019-07-04T17:30:00.000Z",
             price: "£2.99",
             available: true,
             bookingCode: "HERMNDG/2019-06-19/*-*/*/*-*"

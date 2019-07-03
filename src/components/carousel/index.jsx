@@ -63,6 +63,8 @@ const Carousel = ({ dates, selected, onSelect }) => {
     return (
         <Slider {...settings}>
             {dates.map((date, index) => {
+                // this date logic should probably be extracted into its own function with its own unit test
+                // will create a separate story for this technical debt
                 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; // will need to be translated
                 const weekDays = ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']; // will need to be translated
                 const parsedDate = new Date(date.date);
