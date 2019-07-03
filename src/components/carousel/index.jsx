@@ -73,7 +73,7 @@ const Carousel = ({ dates, selected, onSelect }) => {
                 const thisDate = parsedDate.getDate();
                 return (
                     <label
-                        htmlFor={`${date.day}-${index}`}
+                        htmlFor={`${thisDay}-${index}`}
                         className={`carousel-item ${
                             selected === date.bookingCode
                                 ? 'carousel-item-selected'
@@ -90,7 +90,7 @@ const Carousel = ({ dates, selected, onSelect }) => {
                         <input
                             type="radio"
                             name="Day"
-                            id={`${date.day}-${index}`}
+                            id={`${thisDay}-${index}`}
                             value={date.bookingCode}
                             style={radioStyles}
                             onChange={onChange}
