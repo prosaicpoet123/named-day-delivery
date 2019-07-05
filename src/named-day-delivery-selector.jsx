@@ -26,7 +26,7 @@ class NamedDayDeliverySelector extends PureComponent {
             <div className="checkout-fieldset-area">
                 <h3 className="heading-2">Choose a day:</h3>
                 <Carousel
-                    {...deliverydays}
+                    dates={deliverydays}
                     selected={selected}
                     onSelect={this.selectDate}
                 />

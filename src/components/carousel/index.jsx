@@ -73,7 +73,7 @@ const Carousel = ({ dates, selected, onSelect }) => {
         <Slider {...settings}>
             {dates.map((date, index) => {
                 const isSelected = selected === date.bookingCode;
-                const isAvailable = date.available;
+                const isAvailable = date.enabled;
                 const labelClasses = classNames(
                     'carousel-item',
                     { 'carousel-item-selected': isSelected },
@@ -111,7 +111,7 @@ const Carousel = ({ dates, selected, onSelect }) => {
                             style={radioStyles}
                             onChange={onChange}
                             aria-checked={selected === index && 'checked'}
-                            disabled={!date.available}
+                            disabled={!isAvailable}
                         />
                     </label>
                 );
