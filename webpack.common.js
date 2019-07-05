@@ -1,4 +1,5 @@
 const path = require("path");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: "./src/index.js",
@@ -48,12 +49,17 @@ module.exports = {
   resolve: { extensions: ["*", ".js", ".jsx"] },
   output: {
     path: path.resolve(__dirname, "dist/"),
-    filename: "bundle.js"
+    filename: "bundle.[hash].js"
   },
   devServer: {
     // contentBase: path.join(__dirname, "public/"),
     port: 3000,
     publicPath: "http://localhost:3000",
     hotOnly: true
-  }
+  },
+  plugins: [
+    new CleanWebpackPlugin({
+      verbose: true
+    })
+  ]
 };

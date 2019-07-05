@@ -1,5 +1,5 @@
 import ReactHabitat from 'react-habitat';
-import NamedDayDeliverySelector from './named-day-delivery-selector';
+import NominatedDayDeliverySelector from './nominated-day-delivery-selector';
 
 import 'slick-carousel/slick/slick.css';
 // import 'slick-carousel/slick/slick-theme.css';
@@ -13,7 +13,7 @@ class MyApp extends ReactHabitat.Bootstrapper {
         const builder = new ReactHabitat.ContainerBuilder();
 
         // Register a component:
-        builder.register(NamedDayDeliverySelector).as('NamedDayDeliverySelector');
+        builder.register(NominatedDayDeliverySelector).as('NominatedDayDeliverySelector');
 
         // Finally, set the container:
         this.setContainer(builder.build());

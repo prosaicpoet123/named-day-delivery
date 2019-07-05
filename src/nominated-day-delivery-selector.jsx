@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Carousel from './components/carousel';
 
-class NamedDayDeliverySelector extends PureComponent {
+class NominatedDayDeliverySelector extends PureComponent {
     constructor(props) {
         super(props);
 
@@ -36,12 +36,12 @@ class NamedDayDeliverySelector extends PureComponent {
     }
 }
 
-NamedDayDeliverySelector.defaultProps = {
+NominatedDayDeliverySelector.defaultProps = {
     deliverydays: {}
 };
 
-NamedDayDeliverySelector.propTypes = {
+NominatedDayDeliverySelector.propTypes = {
     deliverydays: PropTypes.instanceOf(Object)
 };
 
-export default NamedDayDeliverySelector;
+export default NominatedDayDeliverySelector;
