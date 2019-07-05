@@ -1,5 +1,5 @@
 import ReactHabitat from 'react-habitat';
-import NominatedDayDeliverySelector from './named-day-delivery-selector';
+import NominatedDayDeliverySelector from './nominated-day-delivery-selector';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
