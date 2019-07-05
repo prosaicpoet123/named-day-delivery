@@ -73,7 +73,7 @@ const Carousel = ({ dates, selected, onSelect }) => {
         <Slider {...settings}>
             {dates.map((date, index) => {
                 const isSelected = selected === date.bookingCode;
-                const isAvailable = date.enabled;
+                const isAvailable = date.enabled === 'true';
                 const labelClasses = classNames(
                     'carousel-item',
                     { 'carousel-item-selected': isSelected },
