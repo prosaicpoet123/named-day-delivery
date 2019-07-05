@@ -23,7 +23,7 @@ class NominatedDayDeliverySelector extends PureComponent {
         const { deliverydays } = this.props;
         return (
             // couple of classes to borrow styles from ATG
-            <div className="checkout-fieldset-area">
+            <div className="checkout-fieldset-area ndd-react-component">
                 <h3 className="heading-2">Choose a day:</h3>
                 <Carousel
                     dates={deliverydays}

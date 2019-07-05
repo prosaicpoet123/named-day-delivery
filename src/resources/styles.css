@@ -10,8 +10,8 @@
     color: #333;
 }
 
-.slick-prev,
-.slick-next {
+.ndd-react-component .slick-prev,
+.ndd-react-component .slick-next {
     top: 40%;
 }
 
@@ -19,9 +19,11 @@
     opacity: 0.5;
 }
 
-.slick-next {
+.ndd-react-component .slick-next {
     transform: rotate(45deg);
     right: -20px;
+    width: 20px;
+    height: 20px;
     border-top: 4px solid #006341;
     border-right: 4px solid #006341;
 }
@@ -32,9 +34,11 @@
     visibility: hidden; /* important overwright to stop styles from breaking in live */
 }
 
-.slick-prev {
+.ndd-react-component .slick-prev {
     transform: rotate(-135deg);
     left: -20px;
+    width: 20px;
+    height: 20px;
     border-top: 4px solid #006341;
     border-right: 4px solid #006341;
 }
