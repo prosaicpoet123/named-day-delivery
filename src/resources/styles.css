@@ -10,6 +10,11 @@
     color: #333;
 }
 
+.checkout-fieldset-area.ndd-react-component {
+    margin-left: 6.25%;
+    margin-right: 6.25%;
+}
+
 .ndd-react-component .slick-prev,
 .ndd-react-component .slick-next {
     top: 40%;
