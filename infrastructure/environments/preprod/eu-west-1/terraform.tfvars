@@ -13,8 +13,8 @@ vpc_info = {
 }
 
 app_info = {
-  image             = "registry.gitlab.com/hnbi/replatform/named-day-delivery"
-  image_secrets_arn = "arn:aws:secretsmanager:eu-west-1:160519433728:secret:ssr-pdp-gitlab-token-pmwJuL"
+  image             = "registry.gitlab.com/hnbi/replatform/named-day-delivery:v0.1.1"
+  image_secrets_arn = "arn:aws:secretsmanager:eu-west-1:160519433728:secret:named-day-delivery-gitlab-token-LUYqDI"
   fargate_cpu       = 256
   fargate_memory    = 512
   container_port    = 3003
