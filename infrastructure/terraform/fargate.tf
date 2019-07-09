@@ -42,7 +42,7 @@ resource "aws_route53_record" "named-day-delivery_alb_cert_validation" {
 
 resource "aws_route53_record" "named-day-delivery_dns_name" {
   zone_id = data.terraform_remote_state.route53_zone.outputs.route53_zones.0.zone_id
-  name    = "ssr-pdp.${local.environment}.aws.hollandandbarrett.com"
+  name    = "named-day-delivery.${local.environment}.aws.hollandandbarrett.com"
   type    = "CNAME"
   ttl     = "300"
   records = [aws_alb.named-day-delivery.dns_name]
@@ -76,7 +76,7 @@ resource "aws_security_group" "named-day-delivery_alb" {
 }
 
 resource "aws_alb" "named-day-delivery" {
-  name_prefix = "ssrpdp"
+  name_prefix = "namedaydelivery"
   subnets     = var.vpc_info.public_subnet_ids
 
   security_groups = [
@@ -218,7 +218,7 @@ resource "aws_ecs_task_definition" "named-day-delivery" {
       "credentialsParameter": "${var.app_info.image_secrets_arn}"
     },
     "memory": ${var.app_info.fargate_memory},
-    "name": "ssr-pdp",
+    "name": "named-day-delivery",
     "networkMode": "awsvpc",
     "portMappings": [
       {
