@@ -29,7 +29,7 @@ const Carousel = ({ dates, selected, onSelect }) => {
             {
                 breakpoint: 400,
                 settings: {
-                    slidesToShow: 4,
+                    slidesToShow: 5,
                     slidesToScroll: 1
                 }
             }
