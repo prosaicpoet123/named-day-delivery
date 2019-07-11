@@ -13,7 +13,7 @@ vpc_info = {
 }
 
 app_info = {
-  image             = "registry.gitlab.com/hnbi/replatform/named-day-delivery"
+  image             = "registry.gitlab.com/hnbi/replatform/named-day-delivery:v0.1.0"
   image_secrets_arn = "arn:aws:secretsmanager:eu-west-1:160519433728:secret:ssr-pdp-gitlab-token-pmwJuL"
   fargate_cpu       = 256
   fargate_memory    = 512
