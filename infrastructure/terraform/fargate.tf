@@ -20,36 +20,36 @@ data "terraform_remote_state" "route53_zone" {
   }
 }
 
-resource "aws_acm_certificate" "named-day-delivery_alb_cert" {
+resource "aws_acm_certificate" "named_day_delivery_alb_cert" {
   domain_name       = "named-day-delivery.${local.environment}.aws.hollandandbarrett.com"
   validation_method = "DNS"
 
   tags = merge(local.required_tags, var.tags)
 }
 
-resource "aws_acm_certificate_validation" "named-day-delivery_alb_validated_cert" {
-  certificate_arn         = aws_acm_certificate.named-day-delivery_alb_cert.arn
-  validation_record_fqdns = [aws_route53_record.named-day-delivery_alb_cert_validation.fqdn]
+resource "aws_acm_certificate_validation" "named_day_delivery_alb_validated_cert" {
+  certificate_arn         = aws_acm_certificate.named_day_delivery_alb_cert.arn
+  validation_record_fqdns = [aws_route53_record.named_day_delivery_alb_cert_validation.fqdn]
 }
 
-resource "aws_route53_record" "named-day-delivery_alb_cert_validation" {
-  name    = aws_acm_certificate.named-day-delivery_alb_cert.domain_validation_options.0.resource_record_name
-  type    = aws_acm_certificate.named-day-delivery_alb_cert.domain_validation_options.0.resource_record_type
+resource "aws_route53_record" "named_day_delivery_alb_cert_validation" {
+  name    = aws_acm_certificate.named_day_delivery_alb_cert.domain_validation_options.0.resource_record_name
+  type    = aws_acm_certificate.named_day_delivery_alb_cert.domain_validation_options.0.resource_record_type
   zone_id = data.terraform_remote_state.route53_zone.outputs.route53_zones.0.zone_id
-  records = [aws_acm_certificate.named-day-delivery_alb_cert.domain_validation_options.0.resource_record_value]
+  records = [aws_acm_certificate.named_day_delivery_alb_cert.domain_validation_options.0.resource_record_value]
   ttl     = 60
 }
 
-resource "aws_route53_record" "named-day-delivery_dns_name" {
+resource "aws_route53_record" "named_day_delivery_dns_name" {
   zone_id = data.terraform_remote_state.route53_zone.outputs.route53_zones.0.zone_id
   name    = "named-day-delivery.${local.environment}.aws.hollandandbarrett.com"
   type    = "CNAME"
   ttl     = "300"
-  records = [aws_alb.named-day-delivery.dns_name]
+  records = [aws_alb.named_day_delivery.dns_name]
 }
 
 ### ALB
-resource "aws_security_group" "named-day-delivery_alb" {
+resource "aws_security_group" "named_day_delivery_alb" {
   name_prefix = "named-day-delivery-alb"
   description = "Allow HTTPS from Anywhere into ALB"
   vpc_id      = var.vpc_info.id
@@ -75,19 +75,19 @@ resource "aws_security_group" "named-day-delivery_alb" {
   }
 }
 
-resource "aws_alb" "named-day-delivery" {
-  name_prefix = "namedaydelivery"
+resource "aws_alb" "named_day_delivery" {
+  name_prefix = "ndd"
   subnets     = var.vpc_info.public_subnet_ids
 
   security_groups = [
-    aws_security_group.named-day-delivery_alb.id,
+    aws_security_group.named_day_delivery_alb.id,
   ]
 
   tags = merge(local.required_tags, var.tags)
 }
 
-resource "aws_alb_target_group" "named-day-delivery" {
-  name_prefix = "nameddaydelivery"
+resource "aws_alb_target_group" "named_day_delivery" {
+  name_prefix = "ndd"
   port        = var.app_info.host_port
   protocol    = "HTTP"
   vpc_id      = var.vpc_info.id
@@ -109,21 +109,21 @@ resource "aws_alb_target_group" "named-day-delivery" {
 }
 
 # Redirect all traffic from the ALB to the target group
-resource "aws_alb_listener" "named-day-delivery" {
-  load_balancer_arn = aws_alb.named-day-delivery.id
+resource "aws_alb_listener" "named_day_delivery" {
+  load_balancer_arn = aws_alb.named_day_delivery.id
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
-  certificate_arn   = aws_acm_certificate_validation.named-day-delivery_alb_validated_cert.certificate_arn
+  certificate_arn   = aws_acm_certificate_validation.named_day_delivery_alb_validated_cert.certificate_arn
 
   default_action {
-    target_group_arn = aws_alb_target_group.named-day-delivery.id
+    target_group_arn = aws_alb_target_group.named_day_delivery.id
     type             = "forward"
   }
 }
 
 ### ECS
-resource "aws_security_group" "named-day-delivery_ecs" {
+resource "aws_security_group" "named_day_delivery_ecs" {
   vpc_id      = var.vpc_info.id
   name        = "named-day-delivery-ecs-sg"
   description = "Allow ingress from ALB"
@@ -141,19 +141,19 @@ resource "aws_security_group" "named-day-delivery_ecs" {
     protocol  = "tcp"
 
     security_groups = [
-      aws_security_group.named-day-delivery_alb.id,
+      aws_security_group.named_day_delivery_alb.id,
     ]
   }
 
   tags = merge(local.required_tags, var.tags)
 }
 
-resource "aws_ecs_cluster" "named-day-delivery" {
+resource "aws_ecs_cluster" "named_day_delivery" {
   name = "ssr-pdp-cluster"
   tags = merge(local.required_tags, var.tags)
 }
 
-data "aws_iam_policy_document" "named-day-delivery_task_execution_policy" {
+data "aws_iam_policy_document" "named_day_delivery_task_execution_policy" {
   statement {
     sid    = "AllowReadPrivateDockerRegistrySecrets"
     effect = "Allow"
@@ -168,13 +168,13 @@ data "aws_iam_policy_document" "named-day-delivery_task_execution_policy" {
   }
 }
 
-resource "aws_iam_policy" "named-day-delivery_task_execution_policy" {
+resource "aws_iam_policy" "named_day_delivery_task_execution_policy" {
   name        = "named-day-delivery-task-execution-policy"
   description = "policy to read secrets to pull private registry images"
-  policy      = data.aws_iam_policy_document.named-day-delivery_task_execution_policy.json
+  policy      = data.aws_iam_policy_document.named_day_delivery_task_execution_policy.json
 }
 
-resource "aws_iam_role" "named-day-delivery_task_execution_role" {
+resource "aws_iam_role" "named_day_delivery_task_execution_role" {
   name = "named-day-delivery-task-execution-role"
   tags = merge(local.required_tags, var.tags)
 
@@ -195,18 +195,18 @@ resource "aws_iam_role" "named-day-delivery_task_execution_role" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "named-day-delivery_task_execution_role" {
-  role = aws_iam_role.named-day-delivery_task_execution_role.name
-  policy_arn = aws_iam_policy.named-day-delivery_task_execution_policy.arn
+resource "aws_iam_role_policy_attachment" "named_day_delivery_task_execution_role" {
+  role = aws_iam_role.named_day_delivery_task_execution_role.name
+  policy_arn = aws_iam_policy.named_day_delivery_task_execution_policy.arn
 }
 
-resource "aws_ecs_task_definition" "named-day-delivery" {
+resource "aws_ecs_task_definition" "named_day_delivery" {
   family = "named-day-delivery"
   network_mode = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu = var.app_info.fargate_cpu
   memory = var.app_info.fargate_memory
-  execution_role_arn = aws_iam_role.named-day-delivery_task_execution_role.arn
+  execution_role_arn = aws_iam_role.named_day_delivery_task_execution_role.arn
   tags = merge(local.required_tags, var.tags)
 
   container_definitions = <<DEFINITION
@@ -231,26 +231,26 @@ resource "aws_ecs_task_definition" "named-day-delivery" {
 DEFINITION
 }
 
-resource "aws_ecs_service" "named-day-delivery" {
+resource "aws_ecs_service" "named_day_delivery" {
   name            = "named-day-delivery"
-  cluster         = aws_ecs_cluster.named-day-delivery.id
-  task_definition = aws_ecs_task_definition.named-day-delivery.arn
+  cluster         = aws_ecs_cluster.named_day_delivery.id
+  task_definition = aws_ecs_task_definition.named_day_delivery.arn
   desired_count   = var.app_info.replicas
   launch_type     = "FARGATE"
 
   network_configuration {
-    security_groups = [aws_security_group.named-day-delivery_ecs.id]
+    security_groups = [aws_security_group.named_day_delivery_ecs.id]
     subnets         = var.vpc_info.private_subnet_ids
   }
 
   load_balancer {
-    target_group_arn = "${aws_alb_target_group.named-day-delivery.id}"
+    target_group_arn = "${aws_alb_target_group.named_day_delivery.id}"
     container_name   = "named-day-delivery"
     container_port   = var.app_info.container_port
   }
 
   depends_on = [
-    "aws_alb_listener.named-day-delivery",
+    "aws_alb_listener.named_day_delivery",
   ]
 
   # Commenting out tags because of below error
