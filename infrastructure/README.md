@@ -13,6 +13,16 @@ credentials "app.terraform.io" {
 }
 ```
 
+## Gitlab registry
+ECS requires authentication to pull from Gitlab Container Registy, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/private-auth.html
+
+- create a deploy token in Gitlab project settings with `read_registry` permissions for each environment
+- create an AWS secret with the username and password from above to pass it to ECS
+```
+aws-vault exec baupreprod -- aws secretsmanager create-secret --name named-day-delivery-gitlab-token --description "Named Day Delivery Gitlab registry token" --secret-string '{"username":"DEPLOY_TOKEN_USERNAME","password":"DEPLOY_TOKEN_PASSWORD"}'
+```
+
+
 ## Deployment
 
 #### preprod
