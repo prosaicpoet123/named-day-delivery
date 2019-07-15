@@ -11,8 +11,6 @@ const Carousel = ({ dates, selected, onSelect }) => {
         slidesToShow: 7,
         slidesToScroll: 1,
         draggable: false,
-        swipeToSlide: true,
-        swipe: true,
         responsive: [
             {
                 breakpoint: 768,
@@ -25,16 +23,14 @@ const Carousel = ({ dates, selected, onSelect }) => {
                 breakpoint: 480,
                 settings: {
                     slidesToShow: 5,
-                    slidesToScroll: 1,
-                    draggable: true
+                    slidesToScroll: 1
                 }
             },
             {
                 breakpoint: 400,
                 settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 1,
-                    draggable: true
+                    slidesToShow: 5,
+                    slidesToScroll: 1
                 }
             }
         ]
