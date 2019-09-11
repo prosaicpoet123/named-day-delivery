@@ -1,0 +1,39 @@
+import i18n from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import { initReactI18next } from 'react-i18next';
+
+i18n
+    .use(LanguageDetector)
+    .use(initReactI18next)
+    .init({
+        resources: {
+            en: {
+                translations: {
+                    chooseDay: 'Choose a day:'
+                }
+            },
+            nl: {
+                translations: {
+                    chooseDay: 'Kies een bezorgdag:'
+                }
+            },
+            fr: {
+                translations: {
+                    chooseDay: 'Date de livraison:'
+                }
+            }
+        },
+        fallbackLng: 'en',
+        debug: true,
+
+        ns: ['translations'],
+        defaultNS: 'translations',
+
+        keySeparator: false,
+
+        interpolation: {
+            escapeValue: false
+        }
+    });
+
+export default i18n;
