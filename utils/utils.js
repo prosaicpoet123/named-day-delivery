@@ -6,14 +6,17 @@ export const getLocale = (location) => {
     const path = location && location.pathname;
     const origins = [
         'https://www.hollandandbarrett.nl',
-        'https://dt-preprod.hollandandbarrett.net/',
+        'https://dt-preprod.hollandandbarrett.net',
         'https://www.hollandandbarrett.be',
-        'https://be-preprod.hollandandbarrett.net/'
+        'https://be-preprod.hollandandbarrett.net'
     ];
     if (origins.includes(origin)) {
         locale = 'nl';
         if (path.split('/').includes('fr')) {
             locale = 'fr';
+        }
+        if (path.split('/').includes('en')) {
+            locale = 'en';
         }
     }
     return locale;

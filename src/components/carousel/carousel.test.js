@@ -41,9 +41,4 @@ describe('Carousel component', () => {
         expect(wrapper2.find('.slick-slide').length).toBe(3)
     })
 
-    const wrapper3 = mount(<Carousel {...deliveryDays} />)
-
-    it('it should work even when there is no locale', () => {
-        expect(wrapper3.length).toBe(1)
-    })
 });
