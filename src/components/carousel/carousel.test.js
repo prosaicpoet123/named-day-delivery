@@ -27,11 +27,11 @@ const deliveryDays = {
 
 describe('Carousel component', () => {
     it('should show no carousel items if there is no data available', () => {
-        const wrapper1 = mount(<Carousel />);
+        const wrapper1 = mount(<Carousel locale='en' />);
         expect(wrapper1.find('.slick-slide').length).toBe(0)
     });
 
-    const wrapper2 = mount(<Carousel {...deliveryDays} />)
+    const wrapper2 = mount(<Carousel {...deliveryDays} locale='en' />)
 
     it('should show the carousel if there is data available', () => {
         expect(wrapper2.length).toBe(1)
@@ -40,4 +40,5 @@ describe('Carousel component', () => {
     it('should show the correct number of carousel items', () => {
         expect(wrapper2.find('.slick-slide').length).toBe(3)
     })
+
 });
