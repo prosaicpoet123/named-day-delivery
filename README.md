@@ -3,6 +3,9 @@ A named day delivery service that uses react habitat to embed a react component 
 
 # Get started
 Clone the repo
+
 Run ``` npm install ``` at the root
+
 Run ``` npm start ```
+
 The application will be available at localhost:3000
